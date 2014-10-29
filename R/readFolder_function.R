@@ -10,6 +10,11 @@
 #' data = readFolder(dir)
 
 readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
+  # reads all files in directory and combines to one dataframe
+  # param
+  #   dir = string describing directory
+  # return
+  #   dataframe containing all subjects
   
   #Remove trailing file separation
   if (substring(dir,nchar(dir)) == .Platform$file.sep) {
