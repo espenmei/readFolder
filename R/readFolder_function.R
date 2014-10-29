@@ -24,7 +24,7 @@ readFolder = function(dir, pattern = "*", format = "data.frame", addFileName = N
   if (length(list.files(dir, pattern = glob2rx(pattern))) == 0) stop(paste("no files in dir matching",pattern))
   if (!is.character(format)) stop("format needs to be of type character")
   if (!is.character(pattern)) stop("pattern needs to be of type character")
-  
+  if (!is.null(addFileName) && (!is.character(addFileName) || (nchar(addFileName)==0)) ) stop("invalid addFileName")
   #Remove trailing file separation
   if (substring(dir,nchar(dir)) == .Platform$file.sep) {
     dir = substring(dir,1,nchar(dir)-1)
