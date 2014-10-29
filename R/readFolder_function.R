@@ -5,6 +5,7 @@
 #' @param pattern wildcard pattern for filenames. Defaults to "*".
 #' @param format the format to be returned. Either a list or data.frame. Defaults to data.frame.
 #' @param fun function to be applied to each file in the folder.
+#' @param addFileName column name if filename should be added to data.frame. Defaults to NULL.
 #' @param ... optional arguments passed to read.table. See ?read.table
 #' @examples
 #' Calculate the cumulative value for a variable("score") in a new variable("cumscore")
@@ -15,8 +16,8 @@
 #' dir = "c:/experiments/experiment1/"
 #' data = readFolder(dir, fun = cumulativeSum)
 
-readFolder = function(dir, pattern = "*", format = "data.frame", fun, ...) {
-
+readFolder = function(dir, pattern = "*", format = "data.frame", addFileName = NULL, fun, ...) {
+  
   #Check parameters
   if (!is.character(dir)) stop("dir needs to be of type character")
   if (!file.exists(dir)) stop(paste("dir '",dir,"' does not exist",sep=""))
@@ -30,9 +31,17 @@ readFolder = function(dir, pattern = "*", format = "data.frame", fun, ...) {
   }
   
   # all files in dir
-  files = paste(dir, list.files(path = dir, pattern = glob2rx(pattern)), sep = .Platform$file.sep)
+  lFiles = list.files(path = dir, pattern = glob2rx(pattern))
+  files = paste(dir, lFiles, sep = .Platform$file.sep)
   # get all files as list
   dataList = lapply(files, read.table, ...)
+  
+  # add file name as column
+  if(!is.null(addFileName)) {
+    for(i in 1:length(dataList)) {
+      dataList[[i]][, addFileName] = lFiles[[i]]
+    }
+  }
   
   # apply fun to all elements of dataList
   if(!missing(fun)) {

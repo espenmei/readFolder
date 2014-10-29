@@ -4,7 +4,8 @@
 \alias{readFolder}
 \title{Read folder}
 \usage{
-readFolder(dir, pattern = "*", format = "data.frame", fun, ...)
+readFolder(dir, pattern = "*", format = "data.frame", addFileName = NULL,
+  fun, ...)
 }
 \arguments{
 \item{dir}{directory to folder.}
@@ -12,6 +13,8 @@ readFolder(dir, pattern = "*", format = "data.frame", fun, ...)
 \item{pattern}{wildcard pattern for filenames. Defaults to "*".}
 
 \item{format}{the format to be returned. Either a list or data.frame. Defaults to data.frame.}
+
+\item{addFileName}{column name if filename should be added to data.frame. Defaults to NULL.}
 
 \item{fun}{function to be applied to each file in the folder.}
 
