@@ -2,6 +2,7 @@
 #' 
 #' This function reads all files in a folder.
 #' @param dir directory to folder.
+#' @param pattern wildcard pattern for filenames. Defaults to "*".
 #' @param sep separator for columns in data files. Defaults to tabulator.
 #' @param format the format to be returned. Either a list or data.frame. Defaults to data.frame.
 #' @param header does the files contain a header. Defaults to TRUE.
@@ -9,7 +10,7 @@
 #' @examples
 #' Calculate the cumulative value for a variable("score") in a new variable("cumscore")
 #' cumulativeSum = function(data) {
-#'    data[, "cumscore"] = cumsum(dat[, "score"])
+#'    data[, "cumscore"] = cumsum(data[, "score"])
 #'    return(data)
 #' }
 #' dir = "c:/experiments/experiment1/"
@@ -31,8 +32,8 @@ readFolder = function(dir, pattern = "*", sep = "\t", format = "data.frame", hea
     dir = substring(dir,1,nchar(dir)-1)
   }
   
-  files = paste(dir, list.files(path = dir, pattern = glob2rx(pattern)), sep = .Platform$file.sep) # all files in dir
-  
+  # all files in dir
+  files = paste(dir, list.files(path = dir, pattern = glob2rx(pattern)), sep = .Platform$file.sep)
   # get all files as list
   dataList = lapply(files, read.table, sep = sep, header = header)
   
@@ -43,7 +44,8 @@ readFolder = function(dir, pattern = "*", sep = "\t", format = "data.frame", hea
   
   # return
   if(format == "data.frame") {
-    return(do.call(rbind, dataList))# rowbind all subjects to single frame
+    # rowbind to single data.frame
+    return(do.call(rbind, dataList))
   } else if(format == "list"){
     return(dataList)
   }

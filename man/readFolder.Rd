@@ -4,10 +4,13 @@
 \alias{readFolder}
 \title{Read folder}
 \usage{
-readFolder(dir, sep = "\\t", format = "data.frame", header = T, fun)
+readFolder(dir, pattern = "*", sep = "\\t", format = "data.frame",
+  header = T, fun)
 }
 \arguments{
 \item{dir}{directory to folder.}
+
+\item{pattern}{wildcard pattern for filenames. Defaults to "*".}
 
 \item{sep}{separator for columns in data files. Defaults to tabulator.}
 
@@ -23,7 +26,7 @@ This function reads all files in a folder.
 \examples{
 Calculate the cumulative value for a variable("score") in a new variable("cumscore")
 cumulativeSum = function(data) {
-   data[, "cumscore"] = cumsum(dat[, "score"])
+   data[, "cumscore"] = cumsum(data[, "score"])
    return(data)
 }
 dir = "c:/experiments/experiment1/"
