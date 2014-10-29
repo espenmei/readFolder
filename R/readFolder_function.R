@@ -19,7 +19,7 @@ readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
   
   dataList = lapply(files, read.table, sep = sep, header = header) # files to list with [[]] for each subjects
   
-  
+  # test
   if(format == "data.frame") {
     return(do.call(rbind, dataList))# rowbind all subjects to single frame
   } else if(format == "list"){
