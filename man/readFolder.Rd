@@ -4,21 +4,18 @@
 \alias{readFolder}
 \title{Read folder}
 \usage{
-readFolder(dir, pattern = "*", sep = "\\t", format = "data.frame",
-  header = T, fun)
+readFolder(dir, pattern = "*", format = "data.frame", fun, ...)
 }
 \arguments{
 \item{dir}{directory to folder.}
 
 \item{pattern}{wildcard pattern for filenames. Defaults to "*".}
 
-\item{sep}{separator for columns in data files. Defaults to tabulator.}
-
 \item{format}{the format to be returned. Either a list or data.frame. Defaults to data.frame.}
 
-\item{header}{does the files contain a header. Defaults to TRUE.}
-
 \item{fun}{function to be applied to each file in the folder.}
+
+\item{...}{optional arguments passed to read.table. See ?read.table}
 }
 \description{
 This function reads all files in a folder.
