@@ -21,7 +21,12 @@ readFolder(dir, sep = "\\t", format = "data.frame", header = T, fun)
 This function reads all files in a folder.
 }
 \examples{
+Calculate the cumulative value for a variable("score") in a new variable("cumscore")
+cumulativeSum = function(data) {
+   data[, "cumscore"] = cumsum(dat[, "score"])
+   return(data)
+}
 dir = "c:/experiments/experiment1/"
-data = readFolder(dir)
+data = readFolder(dir, fun = cumulativeSum)
 }
 
