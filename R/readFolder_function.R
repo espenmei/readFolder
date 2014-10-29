@@ -15,11 +15,17 @@ readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
   #   dir = string describing directory
   # return
   #   dataframe containing all subjects
-  files = paste(dir, list.files(path = dir), sep = "") # all files in dir
+  
+  #Remove trailing file separation
+  if (substring(dir,nchar(dir)) == .Platform$file.sep) {
+    dir = substring(dir,1,nchar(dir)-1)
+  }
+  
+  files = paste(dir, list.files(path = dir), sep = .Platform$file.sep) # all files in dir
   
   dataList = lapply(files, read.table, sep = sep, header = header) # files to list with [[]] for each subjects
   
-  # test
+  
   if(format == "data.frame") {
     return(do.call(rbind, dataList))# rowbind all subjects to single frame
   } else if(format == "list"){
@@ -27,4 +33,3 @@ readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
   }
   
 }
-
