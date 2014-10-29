@@ -16,6 +16,14 @@ readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
   # return
   #   dataframe containing all subjects
   
+  #Check parameters
+  if (!is.character(dir)) stop("dir needs to be of type character")
+  if (!file.exists(dir)) stop(paste("dir '",dir,"' does not exist",sep=""))
+  if (length(list.files(dir)) == 0) stop("no files in dir")
+  if (!is.character(sep)) stop("sep needs to be of type character")
+  if (!is.character(format)) stop("format needs to be of type character")
+  if (!is.logical(header)) stop("header needs to be of type logical")
+  
   #Remove trailing file separation
   if (substring(dir,nchar(dir)) == .Platform$file.sep) {
     dir = substring(dir,1,nchar(dir)-1)
