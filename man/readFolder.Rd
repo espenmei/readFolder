@@ -4,7 +4,7 @@
 \alias{readFolder}
 \title{Read folder}
 \usage{
-readFolder(dir, sep = "\\t", format = "data.frame", header = T)
+readFolder(dir, sep = "\\t", format = "data.frame", header = T, fun)
 }
 \arguments{
 \item{dir}{directory to folder.}
@@ -14,12 +14,14 @@ readFolder(dir, sep = "\\t", format = "data.frame", header = T)
 \item{format}{the format to be returned. Either a list or data.frame. Defaults to data.frame.}
 
 \item{header}{does the files contain a header. Defaults to TRUE.}
+
+\item{fun}{function to be applied to each file in the folder.}
 }
 \description{
 This function reads all files in a folder.
 }
 \examples{
-dir = c:/experiments/experiment1/
+dir = "c:/experiments/experiment1/"
 data = readFolder(dir)
 }
 
