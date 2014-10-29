@@ -7,16 +7,16 @@
 #' @param header does the files contain a header. Defaults to TRUE.
 #' @param fun function to be applied to each file in the folder.
 #' @examples
+#' Calculate the cumulative value for a variable("score") in a new variable("cumscore")
+#' cumulativeSum = function(data) {
+#'    data[, "cumscore"] = cumsum(dat[, "score"])
+#'    return(data)
+#' }
 #' dir = "c:/experiments/experiment1/"
-#' data = readFolder(dir)
+#' data = readFolder(dir, fun = cumulativeSum)
 
 readFolder = function(dir, pattern = "*", sep = "\t", format = "data.frame", header = T, fun) {
-  # reads all files in directory and combines to one dataframe
-  # param
-  #   dir = string describing directory
-  # return
-  #   dataframe containing all subjects
-  
+
   #Check parameters
   if (!is.character(dir)) stop("dir needs to be of type character")
   if (!file.exists(dir)) stop(paste("dir '",dir,"' does not exist",sep=""))
@@ -33,12 +33,15 @@ readFolder = function(dir, pattern = "*", sep = "\t", format = "data.frame", hea
   
   files = paste(dir, list.files(path = dir, pattern = glob2rx(pattern)), sep = .Platform$file.sep) # all files in dir
   
-  dataList = lapply(files, read.table, sep = sep, header = header) # files to list with [[]] for each subjects
+  # get all files as list
+  dataList = lapply(files, read.table, sep = sep, header = header)
   
+  # apply fun to all elements of dataList
   if(!missing(fun)) {
     dataList = lapply(dataList, fun) 
   }
   
+  # return
   if(format == "data.frame") {
     return(do.call(rbind, dataList))# rowbind all subjects to single frame
   } else if(format == "list"){
