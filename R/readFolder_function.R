@@ -6,7 +6,7 @@
 #' @param format the format to be returned. Either a list or data.frame. Defaults to data.frame.
 #' @param header does the files contain a header. Defaults to TRUE.
 #' @examples
-#' dir = c:/experiments/experiment1/
+#' dir = "c:/experiments/experiment1/"
 #' data = readFolder(dir)
 
 readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
