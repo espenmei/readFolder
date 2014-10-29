@@ -5,11 +5,12 @@
 #' @param sep separator for columns in data files. Defaults to tabulator.
 #' @param format the format to be returned. Either a list or data.frame. Defaults to data.frame.
 #' @param header does the files contain a header. Defaults to TRUE.
+#' @param fun function to be applied to each file in the folder.
 #' @examples
 #' dir = "c:/experiments/experiment1/"
 #' data = readFolder(dir)
 
-readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
+readFolder = function(dir, sep ="\t", format = "data.frame", header = T, fun) {
   # reads all files in directory and combines to one dataframe
   # param
   #   dir = string describing directory
@@ -33,6 +34,9 @@ readFolder = function(dir, sep ="\t", format = "data.frame", header = T) {
   
   dataList = lapply(files, read.table, sep = sep, header = header) # files to list with [[]] for each subjects
   
+  if(!missing(fun)) {
+    dataList = lapply(dataList, fun) 
+  }
   
   if(format == "data.frame") {
     return(do.call(rbind, dataList))# rowbind all subjects to single frame
